@@ -126,9 +126,9 @@ nav{
   width: 96%;
   background-color: #0d3c5c;
   border-bottom: 1px solid aqua;
-  position: fixed;
+  /* position: fixed;
   top: 0;
-  z-index: 10;
+  z-index: 10; */
   padding: 0 2% 0 2%;
   display: flex;
   justify-content: space-between;
@@ -799,7 +799,19 @@ img.home-img {
   color: aqua;
   text-align: center;
 }
-
+.link-home{
+  padding: 15px;
+  text-decoration: none;
+  background-color: aqua;
+  color: #0d3c5c;
+  margin-top: 30px;
+  border-radius: 10px;
+}
+.link-home:hover{
+  background-color: #0d3c5c;
+  color: aqua;
+  border: 1px aqua solid;
+}
 /* NEST POST CSS */
 
 .each-post-container {
@@ -987,6 +999,7 @@ margin-left: 40px;
     margin-top: 30px;
   }
 
+
   
 
   
@@ -1120,7 +1133,7 @@ display: none;
   /* COMMENTS CSS */
   .comments-div{
     margin-left: 0%;
-    margin-bottom: 54%;
+    margin-bottom: 0%;
   }
   
 
@@ -1129,9 +1142,12 @@ display: none;
   padding-left: 2%;
   padding-right: 2%;
    width: 96%;
+   position: absolute;
+   bottom: auto;
    
   }
-  
+
+
   
  
 
