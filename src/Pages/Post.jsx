@@ -284,12 +284,8 @@ const Post = () => {
                           <div>
                             <h3>Add Comment</h3>
                             <div
-                              style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                marginBottom: "10px",
-                              }}
+                            className="comment-name"
+
                             >
                               <div style={{ marginRight: "10px" }}>
                                 <label>Name:</label>
@@ -300,7 +296,7 @@ const Post = () => {
                                   onChange={handleCommentChange}
                                 />
                               </div>
-                              <div>
+                              <div className="email-input">
                                 <label>Email:</label>
                                 <input
                                   type="email"
@@ -311,7 +307,7 @@ const Post = () => {
                               </div>
                             </div>
                             <div>
-                              <label>Comment:</label>
+                              <label className="comment-text">Comment:</label>
                               <textarea
                                 name="body"
                                 value={newComment.body}

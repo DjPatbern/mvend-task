@@ -126,9 +126,6 @@ nav{
   width: 96%;
   background-color: #0d3c5c;
   border-bottom: 1px solid aqua;
-  /* position: fixed;
-  top: 0;
-  z-index: 10; */
   padding: 0 2% 0 2%;
   display: flex;
   justify-content: space-between;
@@ -342,9 +339,7 @@ img.home-img {
   font-weight: bolder;
   width: 100%;
   height: 56px;
-  border: none;
-  /* Primary/Main */
-  
+  border: none;  
   background: aqua;
   border-radius: 8px;
   }
@@ -920,6 +915,13 @@ margin-left: 40px;
 
 }
 
+.comment-name{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
 /* STYLING FOR VERY SMALL PHONES */
 
 @media only screen and (max-width: 408px) and (min-width: 200px){
@@ -1134,6 +1136,7 @@ display: none;
   .comments-div{
     margin-left: 0%;
     margin-bottom: 0%;
+    padding-bottom: 10px;
   }
   
 
@@ -1144,8 +1147,20 @@ display: none;
    width: 96%;
    position: absolute;
    bottom: auto;
-   
+   text-align: center;
   }
+.comment-name{
+  display: block;
+}
+.comment-text{
+  margin-left: -32px;
+}
+
+.email-input{
+  margin-left: -8px;
+  margin-top: 10px;
+}
+
 
 
   
