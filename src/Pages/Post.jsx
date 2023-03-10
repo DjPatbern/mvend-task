@@ -1,38 +1,69 @@
 import React, { useEffect, useState } from "react";
-import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
-import giftDash from "../Assets/giftDash.png";
-import cup from "../Assets/cup.png";
-import archive from "../Assets/archive.png";
-import message from "../Assets/message.png";
-import searchNormal from "../Assets/search-normal.png";
-import discover from "../Assets/discover.png";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { excerpt } from "../Utility";
-import vector from "../Assets/Vector.png";
 import { useSignUpContext } from "../ContextsManagers/SignUpContext";
 import { Helmet } from "react-helmet-async";
-import { Divide as Hamburger } from "hamburger-react";
 import { motion } from "framer-motion";
 import Loading from "../Loading/Loading";
+import { Navi, Sidebar } from "../Components/DashboardTemplate";
 
 const Post = () => {
-  const { firstName, lastName, UserId } = useSignUpContext();
-
+  const { UserId } = useSignUpContext();
   const navigate = useNavigate();
-
-  const [isOpen, setOpen] = useState(false); // For Phone Size Hamburger
+  const [loading, setLoading] = useState(false); //for Loading state while awaiting api call
   const params = useParams(); //Params for nested Post
   const [post, setPost] = useState({}); // state to hold the datas of each post
-  const [loading, setLoading] = useState(false); //Loading state to await api call
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
-  const [comments, setComments] = useState([]);
+  const [title, setTitle] = useState(""); // state to hold the title of a particular post for editing and deleting
+  const [body, setBody] = useState(""); // state to hold the body of a post for editing and deleting
+  const [comments, setComments] = useState([]); // state to hold the comments of a post
   const [newComment, setNewComment] = useState({
     name: "",
     email: "",
     body: "",
-  });
+  }); // state to set a new comment
 
+  //LOGIC TO FETCH THE API OF A SINGLE POST
+
+  useEffect(() => {
+    const postLinkUrl = `https://jsonplaceholder.typicode.com/posts/${params.postId}`;
+
+    axios
+      .get(postLinkUrl)
+      .then((response) => {
+        setLoading(true);
+        setPost(response.data);
+        setTitle(response.data.title);
+        setBody(response.data.body);
+      })
+      .catch(function (error) {
+        if (error.response.status === 404) {
+          return <Loading />;
+        }
+      });
+  }, [params]);
+
+  //LOGIC FOR EDITING AND DELETING A POST
+  const handleTitleChange = (e) => setTitle(e.target.value);
+  const handleBodyChange = (e) => setBody(e.target.value);
+
+  const handleUpdate = () => {
+    axios
+      .put(`https://jsonplaceholder.typicode.com/posts/${params.postId}`, {
+        title,
+        body,
+      })
+      .then((response) => setPost(response.data));
+  };
+
+  const handleDelete = () => {
+    axios
+      .delete(`https://jsonplaceholder.typicode.com/posts/${params.postId}`)
+      .then(() => {
+        setPost({});
+      });
+  };
+
+  //LOGIC FOR SETING AND POSTING NEW COMMENT
   useEffect(() => {
     axios
       .get(
@@ -57,44 +88,6 @@ const Post = () => {
       .catch((err) => console.log(err));
   };
 
-  const handleTitleChange = (e) => setTitle(e.target.value);
-  const handleBodyChange = (e) => setBody(e.target.value);
-
-  const handleUpdate = () => {
-    axios
-      .put(`https://jsonplaceholder.typicode.com/posts/${params.postId}`, {
-        title,
-        body,
-      })
-      .then((response) => setPost(response.data));
-  };
-
-  const handleDelete = () => {
-    axios
-      .delete(`https://jsonplaceholder.typicode.com/posts/${params.postId}`)
-      .then(() => {
-        setPost({});
-      });
-  };
-
-  useEffect(() => {
-    const postLinkUrl = `https://jsonplaceholder.typicode.com/posts/${params.postId}`;
-
-    axios
-      .get(postLinkUrl)
-      .then((response) => {
-        setLoading(true);
-        setPost(response.data);
-        setTitle(response.data.title);
-        setBody(response.data.body);
-      })
-      .catch(function (error) {
-        if (error.response.status === 404) {
-          return setLoading(true);
-        }
-      });
-  }, [params]);
-
   return (
     // PAGE IN AND OUT MOTION ANIMATION
     <motion.div
@@ -110,108 +103,13 @@ const Post = () => {
       </Helmet>
       <main className="main .bg-primary	">
         <div className="main-flex">
-          {/* SIDEBAR */}
-          <div className="sidebar">
-            <img
-              src="https://mvendgroup.com/images/logo-sm.svg"
-              style={{ width: "80px" }}
-              alt="giftly logo"
-              className="dashboard-logo"
-              onClick={() => navigate("/dashboard")}
-            />
-            <Link to="/dashboard" className="Link">
-              <img src={giftDash} alt="gift" className="icon" />
-              <span className="active-nav">Posts</span>
-            </Link>
-            <Link to="/dashboard" className="Link">
-              <img src={cup} alt="cup" className="icon" />
-              <span className="none-active-nav">Trending</span>
-            </Link>
-            <Link to="/dashboard/createpost" className="Link">
-              <img src={discover} alt="discover" className="icon" />
-              <span className="none-active-nav">+Post</span>
-              <span className="dash-new">new</span>
-            </Link>
-            <Link to="/dashboard" className="Link">
-              <img src={archive} alt="archive" className="icon" />
-              <span className="none-active-nav">Saved</span>
-            </Link>
-            <Link to="/dashboard" className="Link">
-              <img src={message} alt="message" className="icon" />
-              <span className="none-active-nav">Support</span>
-            </Link>
-
-            {/* USERNAME DISPLAY */}
-            <Link to="/dashboard" className="Link profile">
-              <span className="profile-nub">
-                {firstName[0]} {lastName[0]}
-              </span>
-              <span className="none-active-nav">
-                {/* EXCERPT HERE IS USED TO SHOW ONLY THE FIRST 10 CHARACTERS OF THE USER'S NAME */}
-                {excerpt(firstName + " " + lastName, 10)}
-              </span>
-              <img src={vector} alt="archive" className="icon" />
-            </Link>
-          </div>
+          <Sidebar />
 
           <div className="home">
             <div>
-              {/* TOP NAV */}
-              <section className="dashboard-top-nav">
-                {/* HAMBUGER FOR PHONE NAVIGATION */}
-                <div className="dropdown">
-                  <Hamburger
-                    toggle={() => setOpen((prevOpen) => !prevOpen)}
-                    rounded
-                    toggled={isOpen}
-                  />
-                  <div className={isOpen ? "dropdown-content" : "setOpen"}>
-                    <a href="/dashboard" className="phone-nav">
-                      Home
-                    </a>
-                    <a href="/dashboard" className="phone-nav">
-                      Trending{" "}
-                    </a>
-                    <a href="/dashboard/createpost" className="phone-nav">
-                      +Post <span className="dash-new">new</span>
-                    </a>
-                    <a href="/dashboard" className="phone-nav">
-                      Saved
-                    </a>
-                    <a href="/dashboard" className="phone-nav">
-                      Support
-                    </a>
-                    <a href="/dashboard" className="phone-nav">
-                      {" "}
-                      <span className="profile-nub">
-                        {firstName[0]} {lastName[0]}
-                      </span>
-                      {excerpt(firstName + " " + lastName, 10)}
-                    </a>
-                  </div>
-                </div>
+              <Navi />
 
-                {/* END OF PHONE HAMBURGER */}
-
-                <p className="top-create-wishlist">Post</p>
-                <div className="dashboard-search">
-                  <img src={searchNormal} alt="search symbol" />
-                  <input type="text" placeholder="Find friends" />
-                </div>
-                <button
-                  className="dashboard-top-nav-btn top-create-wishlist"
-                  onClick={(e) => navigate("/")}
-                  style={{
-                    color: "white",
-                    fontWeight: "bolder",
-                    backgroundColor: "#0d3c5c",
-                  }}
-                >
-                  <span>Create Post</span>
-                </button>
-              </section>
-
-              {/* OUTLET TO HANDLE USERNAME AND INTEREST POPUP */}
+              {/* OUTLET TO HANDLE USERNAME,CREATE POST AND INTEREST POPUP */}
               <div className="popup-outlet">
                 <div className="outlet">
                   <Outlet />
@@ -283,10 +181,7 @@ const Post = () => {
                         <form onSubmit={handleSubmit} className="comment-form">
                           <div>
                             <h3>Add Comment</h3>
-                            <div
-                            className="comment-name"
-
-                            >
+                            <div className="comment-name">
                               <div style={{ marginRight: "10px" }}>
                                 {/* <label>Name:</label> */}
                                 <input
@@ -308,19 +203,17 @@ const Post = () => {
                                 />
                               </div>
                               <div>
-                              {/* <label className="comment-text">Comment:</label> */}
-                              <input
-                                name="body"
-                                value={newComment.body}
-                                onChange={handleCommentChange}
-                                placeholder="Comment"
-                                className="textarea"
-                              />
+                                {/* <label className="comment-text">Comment:</label> */}
+                                <input
+                                  name="body"
+                                  value={newComment.body}
+                                  onChange={handleCommentChange}
+                                  placeholder="Comment"
+                                  className="textarea"
+                                />
+                              </div>
+                              <button type="submit">Submit</button>
                             </div>
-                            <button type="submit">Submit</button>
-                            </div>
-                           
-                           
                           </div>
                         </form>
                       </div>

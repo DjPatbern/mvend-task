@@ -63,7 +63,7 @@ const UserInterestCard = () => {
                   : "interest-done-btn disable"
               }
               onClick={handleInterest}
-              style={{color: "black"}}
+              style={{ color: "black" }}
             >
               Done
             </button>

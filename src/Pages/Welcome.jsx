@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSignUpContext } from "../ContextsManagers/SignUpContext";
 import { motion } from "framer-motion";
-import Header from "./Header";
+import Header from "../Components/Header";
 
 const WelcomeRedirectPage = () => {
   const navigate = useNavigate();

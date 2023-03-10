@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function Loading() {
-  return (
-<div className="lds-hourglass"></div>
-  )
+  return <div className="lds-hourglass"></div>;
 }
 
-export default Loading
+export default Loading;

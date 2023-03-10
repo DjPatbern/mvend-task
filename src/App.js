@@ -8,11 +8,11 @@ import SignUp from "./Pages/SignUp";
 import WelcomeRedirectPage from "./Pages/Welcome";
 import { UseInterest } from "./ContextsManagers/InterestContext";
 import Dashboard from "./Pages/Dashboard";
-import UsernameCard from "./Pages/UsernameCard";
-import UserInterestCard from "./Pages/UserInterestCard";
-import NotFound from "./Pages/NotFound";
+import UsernameCard from "./PopupCards/UsernameCard";
+import UserInterestCard from "./PopupCards/UserInterestCard";
+import NotFound from "./Components/NotFound";
 import Post from "./Pages/Post";
-import Create from "./Pages/Create";
+import Create from "./PopupCards/Create";
 import { UsePosts } from "./ContextsManagers/PostContext";
 
 function App() {

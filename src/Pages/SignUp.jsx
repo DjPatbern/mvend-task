@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useSignUpContext } from "../ContextsManagers/SignUpContext";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
-import Header from "./Header";
+import Header from "../Components/Header";
 import { GiCancel } from "react-icons/gi";
 
 const SignUp = () => {
@@ -152,12 +152,12 @@ const SignUp = () => {
                     : "signUp-btn disable"
                 }
                 onClick={handleSignUp}
-                style={{color: "black"}}
+                style={{ color: "black" }}
               >
                 Sign up
               </button>
               <p>
-                Aleardy have an account? <strong >Sign in</strong>
+                Aleardy have an account? <strong>Sign in</strong>
               </p>
             </section>
           </div>
