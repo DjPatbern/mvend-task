@@ -27,7 +27,7 @@ const Dashboard = () => {
 
   const [isOpen, setOpen] = useState(false); // For Phone Size Hamburger
   const [pageNumber, setPageNumber] = useState(0); // Pagination state
-  const postsPerPage = 12; // Repositories to be displayed per page
+  const postsPerPage = 12; // posts to be displayed per page
   const pagesVisited = pageNumber * postsPerPage;
   const [search, setSearch] = useState("")
 
@@ -163,7 +163,7 @@ const Dashboard = () => {
                 </button>
               </section>
 
-              {/* OUTLET TO HANDLE USERNAME AND INTEREST POPUP */}
+              {/* OUTLET TO HANDLE USERNAME,CREATE POST AND INTEREST POPUP */}
               <div className="popup-outlet">
                 <div className="outlet">
                   <Outlet />

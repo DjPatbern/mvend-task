@@ -21,8 +21,8 @@ const Post = () => {
   const navigate = useNavigate();
 
   const [isOpen, setOpen] = useState(false); // For Phone Size Hamburger
-  const params = useParams(); //Params for nested repositories
-  const [post, setPost] = useState({}); // state to hold the datas of each repository
+  const params = useParams(); //Params for nested Post
+  const [post, setPost] = useState({}); // state to hold the datas of each post
   const [loading, setLoading] = useState(false); //Loading state to await api call
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -78,10 +78,10 @@ const Post = () => {
   };
 
   useEffect(() => {
-    const repoLinkUrl = `https://jsonplaceholder.typicode.com/posts/${params.postId}`;
+    const postLinkUrl = `https://jsonplaceholder.typicode.com/posts/${params.postId}`;
 
     axios
-      .get(repoLinkUrl)
+      .get(postLinkUrl)
       .then((response) => {
         setLoading(true);
         setPost(response.data);
@@ -245,7 +245,7 @@ const Post = () => {
                                 className="edit-input"
                               />
                             </div>
-                            <div>
+                            <div className="edit-body">
                               <label>Body:</label>
                               <textarea
                                 value={body}
@@ -288,33 +288,39 @@ const Post = () => {
 
                             >
                               <div style={{ marginRight: "10px" }}>
-                                <label>Name:</label>
+                                {/* <label>Name:</label> */}
                                 <input
                                   type="text"
                                   name="name"
                                   value={newComment.name}
                                   onChange={handleCommentChange}
+                                  placeholder="Name"
                                 />
                               </div>
                               <div className="email-input">
-                                <label>Email:</label>
+                                {/* <label>Email:</label> */}
                                 <input
                                   type="email"
                                   name="email"
                                   value={newComment.email}
                                   onChange={handleCommentChange}
+                                  placeholder="Email"
                                 />
                               </div>
-                            </div>
-                            <div>
-                              <label className="comment-text">Comment:</label>
-                              <textarea
+                              <div>
+                              {/* <label className="comment-text">Comment:</label> */}
+                              <input
                                 name="body"
                                 value={newComment.body}
                                 onChange={handleCommentChange}
+                                placeholder="Comment"
+                                className="textarea"
                               />
                             </div>
                             <button type="submit">Submit</button>
+                            </div>
+                           
+                           
                           </div>
                         </form>
                       </div>

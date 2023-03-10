@@ -848,6 +848,10 @@ margin-left: 40px;
   margin-top: 5px;
   
 }
+
+.edit-body{
+  margin-left: -5px;
+}
 .edit-container button:hover{
   color: #0d3c5c;
   background-color: aqua;
@@ -861,7 +865,7 @@ margin-left: 40px;
   background-color: #0d3c5c;
   border-left: white 1px solid;
   margin-left: 14%;
-  margin-bottom: 13%;
+  margin-bottom: 8%;
 }
 
 .comment{
@@ -890,7 +894,7 @@ margin-left: 40px;
  color: aqua;
 }
 
-.comment-form input, .comment-form textarea{
+.comment-form input{
   border-radius: 5px;
   height: 30px;
   margin-left: 10px;
@@ -899,13 +903,22 @@ margin-left: 40px;
   
 }
 
+.comment-form input::placeholder{
+  color: rgb(180, 180, 180);
+  font-family: "poppins";
+  padding-left: 2px;
+}
+
+
+
 .comment-form button{
   padding: 5px 13px 5px 13px;
   background-color: aqua;
   color: #0d3c5c;
   border: none;
   border-radius: 10px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
+  margin-left: 10px;
 }
 
 .comment-form button:hover{
@@ -921,6 +934,7 @@ margin-left: 40px;
   align-items: center;
   margin-bottom: 10px;
 }
+
 
 /* STYLING FOR VERY SMALL PHONES */
 
@@ -1160,7 +1174,13 @@ display: none;
   margin-left: -8px;
   margin-top: 10px;
 }
-
+.comment-form .textarea{
+  margin-left: 2px;
+  margin-top: 10px;
+}
+.comment-form button{
+  margin-top: 10px;
+}
 
 
   
